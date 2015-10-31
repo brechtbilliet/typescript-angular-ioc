@@ -1,0 +1,48 @@
+{
+  "name": "typescript-angular-ioc",
+  "version": "1.1.0",
+  "description": "A library to improve ioc in Angular with typescript",
+  "main": "dist/index.js",
+  "scripts": {
+    "dts-bundle": "node tasks/dts-bundle",
+    "prebuild": "tsd install && rm -rf dist && mkdir dist",
+    "build": "tsc",
+    "postbuild": "npm run dts-bundle",
+    "prepublish": "npm run build",
+    "postinstall": "node tasks/create-typings-folder && cp dist/typescript-angular-ioc.d.ts ../../typings/typescript-angular-ioc.d.ts"
+  },
+  "typescript": {
+    "definition": "dist/typescript-angular-ioc.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brechtbilliet/typescript-angular-ioc.git"
+  },
+  "keywords": [
+    "typescript",
+    "mocking"
+  ],
+  "author": "Brecht Billiet <billietbrecht@gmail.com> (http://brecht.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brechtbilliet/typescript-angular-ioc/issues"
+  },
+  "homepage": "https://github.com/brechtbilliet/typescript-angular-ioc#readme",
+  "devDependencies": {
+    "babel": "5.8.23",
+    "dts-bundle": "^0.3.0",
+    "dts-generator": "^1.5.0",
+    "fs": "0.0.2",
+    "jasmine": "2.3.2",
+    "ts-loader": "0.5.5",
+    "tsd": "0.6.4",
+    "typescript": "1.6.2",
+    "wallaby-webpack": "0.0.8",
+    "webpack": "1.12.2"
+  },
+  "dependencies": {
+    "angular": "1.4.7",
+    "lodash": "3.10.1",
+    "safe-mkdir": "^1.0.3"
+  }
+}
