@@ -1,6 +1,6 @@
-import {IBindable} from "../ioc/Bindable";
-import {BindingType} from "../ioc/BindingType";
-import {Kernel} from "../ioc/Kernel";
+import {IBindable} from "../Bindable";
+import {BindingType} from "../BindingType";
+import {Kernel} from "../Kernel";
 
 interface IFirstLevel {
     secondLevel: ISecondLevel;
@@ -137,7 +137,7 @@ describe("Kernel", () => {
                 kernel.bind("IThirdLevel").toSingleton(ThirdLevel);
                 var retrievedObj: IFirstLevel = kernel.retrieve<IFirstLevel>("IFirstLevel");
                 expect((<any>retrievedObj.secondLevel.constructor).name).toBe("SecondLevel");
-                retrievedObj.secondLevel.thirdLevel.bar();
+                expect((<any>retrievedObj.secondLevel.thirdLevel.constructor).name).toBe("ThirdLevel");
             });
         });
     });

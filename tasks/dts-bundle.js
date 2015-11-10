@@ -6,5 +6,5 @@ dts.generate({
         'index.ts'
     ],
     out: 'dist/typescript-angular-ioc.d.ts',
-    main: "typescript-angular-ioc/index"
+    main: "index"
 });

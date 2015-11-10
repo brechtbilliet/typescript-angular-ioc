@@ -1,5 +1,5 @@
-import {inject} from "../ioc/Inject";
-import {Kernel} from "../ioc/Kernel";
+import {inject} from "../Inject";
+import {Kernel} from "../Kernel";
 
 interface IFirstLevel {
     secondLevel: ISecondLevel;
@@ -33,13 +33,14 @@ class ThirdLevel implements IThirdLevel {
 
     public bar(): void {
     }
-
 }
-
-var kernel: Kernel = new Kernel()
-    .bind("IFirstLevel").toSingleton(FirstLevel)
-    .bind("ISecondLevel").toSingleton(SecondLevel)
-    .bind("IThirdLevel").toSingleton(ThirdLevel);
+var kernel: Kernel;
+beforeEach(() => {
+    kernel = new Kernel()
+        .bind("IFirstLevel").toSingleton(FirstLevel)
+        .bind("ISecondLevel").toSingleton(SecondLevel)
+        .bind("IThirdLevel").toSingleton(ThirdLevel);
+});
 
 describe("When using the @inject annotation", () => {
     it("should add the injections correctly", () => {
