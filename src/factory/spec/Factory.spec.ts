@@ -4,7 +4,6 @@ import "angular-mocks";
 import {AngularModuleWrapper} from "../AngularModuleWrapper";
 import {Factory} from "../Factory";
 import {inject} from "../../ioc/Inject";
-import IAugmentedJQuery = angular.IAugmentedJQuery;
 
 interface ICarService {
     foo: string;
@@ -105,24 +104,6 @@ describe("on bindFactory", () => {
                 expect(carService["$http"].prototype.constructor.name).toBe("$http");
             });
             bootstrap();
-        });
-    });
-    describe("on bindComponent", () => {
-        it("should bind the component to angular", () => {
-            spyOn(mod, "directive").and.callThrough();
-            ngModuleWrapper.bindComponent("fooComponent", FooComponent);
-            mod.directive("fooComponent", () => new FooComponent());
-            expect(mod.directive).toHaveBeenCalled();
-            //bootstrap();
-            //mod.run(() => {
-            //    var tmpl: string = "<foo-component></foo-component>";
-            //    var scope: ng.IScope = rootScope.$new();
-            //
-            //});
-            //var elem: IAugmentedJQuery = compile(tmpl)(scope);
-            //scope.$digest();
-            //console.log(elem[0]);
-            //expect(elem.html()).toBe("sdf");
         });
     });
 });

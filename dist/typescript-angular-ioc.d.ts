@@ -48,18 +48,32 @@ declare module 'typescript-angular-ioc/ioc/Bindable' {
 	}
 
 }
-declare module 'typescript-angular-ioc/ioc/Factory' {
+declare module 'typescript-angular-ioc/factory/Factory' {
+	export class Factory<T> {
+	    private ctor;
+	    private dependencies;
+	    constructor(ctor: any, dependencies: Array<any>);
+	    create(otherDependencies?: Array<string>): T;
+	}
+
+}
+declare module 'typescript-angular-ioc/factory/FactoryBuilder' {
+	import { Factory } from 'typescript-angular-ioc/factory/Factory';
 	export class FactoryBuilder {
 	    private $injector;
 	    static $inject: Array<string>;
 	    constructor($injector: any);
 	    build<T>(ctor: any): Factory<T>;
 	}
-	export class Factory<T> {
-	    private ctor;
-	    private dependencies;
-	    constructor(ctor: any, dependencies: Array<any>);
-	    create(): T;
+
+}
+declare module 'typescript-angular-ioc/factory/AngularModuleWrapper' {
+	import { IModule } from "angular";
+	export class AngularModuleWrapper {
+	    private mod;
+	    constructor(mod: IModule);
+	    bindFactory<T>(name: string, object: any): void;
+	    bindService<T>(name: string, object: any): void;
 	}
 
 }
@@ -71,7 +85,9 @@ declare module 'typescript-angular-ioc/index' {
 	export * from 'typescript-angular-ioc/ioc/Bindable';
 	export * from 'typescript-angular-ioc/ioc/Binding';
 	export * from 'typescript-angular-ioc/ioc/BindingType';
-	export * from 'typescript-angular-ioc/ioc/Factory';
+	export * from 'typescript-angular-ioc/factory/Factory';
+	export * from 'typescript-angular-ioc/factory/AngularModuleWrapper';
+	export * from 'typescript-angular-ioc/factory/FactoryBuilder';
 	export * from 'typescript-angular-ioc/ioc/Inject';
 	export * from 'typescript-angular-ioc/ioc/Kernel';
 

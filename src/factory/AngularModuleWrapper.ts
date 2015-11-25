@@ -1,8 +1,8 @@
-import "angular";
+import {IModule} from "angular";
 import {FactoryBuilder} from "./FactoryBuilder";
 import {Factory} from "./Factory";
 export class AngularModuleWrapper {
-    constructor(private mod: ng.IModule) {
+    constructor(private mod: IModule) {
     }
 
     public bindFactory<T>(name: string, object: any): void {
@@ -16,9 +16,5 @@ export class AngularModuleWrapper {
 
     public bindService<T>(name: string, object: any): void {
         this.mod.service(name, object);
-    }
-
-    public bindComponent(name: string, object: any): void {
-        this.mod.directive(() => new object());
     }
 }
