@@ -6,39 +6,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
-import { inject } from "../Inject";
-import { Kernel } from "../Kernel";
-let FirstLevel = class {
-    constructor(secondLevel) {
+var Inject_1 = require("../Inject");
+var Kernel_1 = require("../Kernel");
+var FirstLevel = (function () {
+    function FirstLevel(secondLevel) {
         this.secondLevel = secondLevel;
         console.log(this.secondLevel);
     }
-};
-FirstLevel = __decorate([
-    inject(["ISecondLevel"])
-], FirstLevel);
-let SecondLevel = class {
-    constructor(thirdLevel) {
+    FirstLevel = __decorate([
+        Inject_1.inject(["ISecondLevel"])
+    ], FirstLevel);
+    return FirstLevel;
+})();
+var SecondLevel = (function () {
+    function SecondLevel(thirdLevel) {
         this.thirdLevel = thirdLevel;
         console.log(this.thirdLevel);
     }
-};
-SecondLevel = __decorate([
-    inject(["IThirdLevel"])
-], SecondLevel);
-class ThirdLevel {
-    bar() {
+    SecondLevel = __decorate([
+        Inject_1.inject(["IThirdLevel"])
+    ], SecondLevel);
+    return SecondLevel;
+})();
+var ThirdLevel = (function () {
+    function ThirdLevel() {
     }
-}
+    ThirdLevel.prototype.bar = function () {
+    };
+    return ThirdLevel;
+})();
 var kernel;
-beforeEach(() => {
-    kernel = new Kernel()
+beforeEach(function () {
+    kernel = new Kernel_1.Kernel()
         .bind("IFirstLevel").toSingleton(FirstLevel)
         .bind("ISecondLevel").toSingleton(SecondLevel)
         .bind("IThirdLevel").toSingleton(ThirdLevel);
 });
-describe("When using the @inject annotation", () => {
-    it("should add the injections correctly", () => {
+describe("When using the @inject annotation", function () {
+    it("should add the injections correctly", function () {
         var firstLevel = kernel.retrieve("IFirstLevel");
         expect(firstLevel.secondLevel.constructor.name).toBe("SecondLevel");
         expect(firstLevel.secondLevel.thirdLevel.constructor.name).toBe("ThirdLevel");

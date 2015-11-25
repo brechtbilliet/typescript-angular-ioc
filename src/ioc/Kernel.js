@@ -55,3 +55,4 @@ var Kernel = (function () {
     return Kernel;
 })();
 exports.Kernel = Kernel;
+//# sourceMappingURL=Kernel.js.map

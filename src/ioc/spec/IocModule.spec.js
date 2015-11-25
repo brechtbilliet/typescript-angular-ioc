@@ -1,5 +1,6 @@
 var BindingType_1 = require("../BindingType");
 var Kernel_1 = require("../Kernel");
+require("jasmine");
 var FirstLevel = (function () {
     function FirstLevel(secondLevel) {
         this.secondLevel = secondLevel;
@@ -126,3 +127,4 @@ describe("Kernel", function () {
         });
     });
 });
+//# sourceMappingURL=IocModule.spec.js.map

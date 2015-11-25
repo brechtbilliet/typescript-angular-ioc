@@ -5,3 +5,4 @@ function inject(dependencies) {
     };
 }
 exports.inject = inject;
+//# sourceMappingURL=Inject.js.map

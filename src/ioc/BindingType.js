@@ -4,3 +4,4 @@
     BindingType[BindingType["factory"] = 2] = "factory";
 })(exports.BindingType || (exports.BindingType = {}));
 var BindingType = exports.BindingType;
+//# sourceMappingURL=BindingType.js.map

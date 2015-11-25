@@ -7,3 +7,4 @@ var Binding = (function () {
     return Binding;
 })();
 exports.Binding = Binding;
+//# sourceMappingURL=Binding.js.map

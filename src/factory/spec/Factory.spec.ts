@@ -63,7 +63,7 @@ describe("on bindFactory", () => {
         it("should get the correct instance", () => {
             getInjectedFactory((carServiceFactory: Factory<ICarService>) => {
                 var carService: ICarService = carServiceFactory.create();
-                expect(carService.constructor.name).toBe("CarService");
+                expect((<any>carService.constructor).name).toBe("CarService");
             });
             bootstrap();
 
@@ -100,7 +100,7 @@ describe("on bindFactory", () => {
         });
         it("should bind the service to angular", () => {
             getInjectedService((carService: ICarService) => {
-                expect(carService.constructor.name).toBe("CarService");
+                expect((<any>carService.constructor).name).toBe("CarService");
                 expect(carService["$http"].prototype.constructor.name).toBe("$http");
             });
             bootstrap();

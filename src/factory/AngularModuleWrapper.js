@@ -1,3 +1,4 @@
+require("angular");
 var FactoryBuilder_1 = require("./FactoryBuilder");
 var AngularModuleWrapper = (function () {
     function AngularModuleWrapper(mod) {
@@ -10,9 +11,7 @@ var AngularModuleWrapper = (function () {
             return new FactoryBuilder_1.FactoryBuilder($injector).build(object);
         }
     };
-    AngularModuleWrapper.prototype.bindService = function (name, object) {
-        this.mod.service(name, object);
-    };
     return AngularModuleWrapper;
 })();
 exports.AngularModuleWrapper = AngularModuleWrapper;
+//# sourceMappingURL=AngularModuleWrapper.js.map

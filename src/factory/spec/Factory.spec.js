@@ -21,48 +21,32 @@ var CarService = (function () {
     CarService.prototype.stop = function () {
     };
     CarService = __decorate([
-        Inject_1.inject(["$http"])
+        Inject_1.inject(['$http'])
     ], CarService);
     return CarService;
 })();
-var FooComponent = (function () {
-    function FooComponent() {
-        this.restrict = "E";
-        this.template = "hello world";
-        this.scope = true;
-    }
-    return FooComponent;
-})();
-describe("on bindFactory", function () {
+describe("on factory", function () {
     var bootstrap;
-    var dummyModuleName = "app";
-    var ngModuleWrapper;
-    var mod = angular.module(dummyModuleName, []);
-    var compile;
-    var rootScope;
-    beforeEach(angular.mock.inject(function ($compile, $rootScope) {
-        compile = $compile;
-        rootScope = $rootScope;
-        mod = angular.module(dummyModuleName, []);
-        ngModuleWrapper = new AngularModuleWrapper_1.AngularModuleWrapper(mod);
+    var getInjectedFactory;
+    beforeEach(function () {
+        var mod = angular.module("app", []);
+        var ngModuleWrapper = new AngularModuleWrapper_1.AngularModuleWrapper(mod);
+        ngModuleWrapper.bindFactory("CarServiceFactory", CarService);
         bootstrap = function () {
-            angular.bootstrap(angular.copy(document), [mod.name], {
+            angular.bootstrap(angular.copy(document), ["app"], {
                 strictDi: true
             });
         };
-    }));
+        getInjectedFactory = function (cb) {
+            angular.module("app").run(startFunc);
+            startFunc.$inject = ["CarServiceFactory"];
+            var returnObj;
+            function startFunc(carServiceFactory) {
+                cb(carServiceFactory);
+            }
+        };
+    });
     describe("on inject", function () {
-        var getInjectedFactory;
-        beforeEach(function () {
-            ngModuleWrapper.bindFactory("CarServiceFactory", CarService);
-            getInjectedFactory = function (cb) {
-                angular.module("app").run(startFunc);
-                startFunc.$inject = ["CarServiceFactory"];
-                function startFunc(carServiceFactory) {
-                    cb(carServiceFactory);
-                }
-            };
-        });
         it("should get the correct instance", function () {
             getInjectedFactory(function (carServiceFactory) {
                 var carService = carServiceFactory.create();
@@ -87,24 +71,5 @@ describe("on bindFactory", function () {
             bootstrap();
         });
     });
-    describe("on bindService", function () {
-        var getInjectedService;
-        beforeEach(function () {
-            ngModuleWrapper.bindService("ICarService", CarService);
-            getInjectedService = function (cb) {
-                angular.module("app").run(startFunc);
-                startFunc.$inject = ["ICarService"];
-                function startFunc(carService) {
-                    cb(carService);
-                }
-            };
-        });
-        it("should bind the service to angular", function () {
-            getInjectedService(function (carService) {
-                expect(carService.constructor.name).toBe("CarService");
-                expect(carService["$http"].prototype.constructor.name).toBe("$http");
-            });
-            bootstrap();
-        });
-    });
 });
+//# sourceMappingURL=Factory.spec.js.map

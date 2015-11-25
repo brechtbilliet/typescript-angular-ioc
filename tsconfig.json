@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
+    "module": "commonjs",
     "noImplicitAny": false,
     "removeComments": true,
     "sourceMap": false,

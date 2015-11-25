@@ -20,3 +20,4 @@ var Bindable = (function () {
     return Bindable;
 })();
 exports.Bindable = Bindable;
+//# sourceMappingURL=Bindable.js.map
