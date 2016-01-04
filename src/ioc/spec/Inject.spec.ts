@@ -1,4 +1,4 @@
-import {inject} from "../Inject";
+import {inject, Inject} from "../Inject";
 import {Kernel} from "../Kernel";
 
 interface IFirstLevel {
@@ -10,6 +10,10 @@ interface ISecondLevel {
 interface IThirdLevel {
     foo: string;
     bar(): void;
+}
+interface ICapitalLevel {
+    firstLevel: IFirstLevel;
+    secondLevel: ISecondLevel;
 }
 
 @inject(["ISecondLevel"])
@@ -28,6 +32,14 @@ class SecondLevel implements ISecondLevel {
 
 }
 
+@Inject("ISecondLevel", "IThirdLevel")
+class CapitalLevel {
+    constructor(public secondLevel: ISecondLevel, public thirdLevel: IThirdLevel) {
+        console.log(this.secondLevel);
+        console.log(this.thirdLevel);
+    }
+}
+
 class ThirdLevel implements IThirdLevel {
     public foo: string;
 
@@ -39,7 +51,8 @@ beforeEach(() => {
     kernel = new Kernel()
         .bind("IFirstLevel").toSingleton(FirstLevel)
         .bind("ISecondLevel").toSingleton(SecondLevel)
-        .bind("IThirdLevel").toSingleton(ThirdLevel);
+        .bind("IThirdLevel").toSingleton(ThirdLevel)
+        .bind("ICapitalLevel").toSingleton(CapitalLevel);
 });
 
 describe("When using the @inject annotation", () => {
@@ -50,4 +63,12 @@ describe("When using the @inject annotation", () => {
     });
 
     // todo, add decorations the the dependency injection of angular
+});
+
+describe("when using the @Inject annotation (with spread notation)", () => {
+    it("should add the injections correctly", () => {
+        var capitalLevel: CapitalLevel = kernel.retrieve<CapitalLevel>("ICapitalLevel");
+        expect((<any>capitalLevel.secondLevel.constructor).name).toBe("SecondLevel");
+        expect((<any>capitalLevel.thirdLevel.constructor).name).toBe("ThirdLevel");
+    });
 });
