@@ -78,7 +78,8 @@ declare module 'typescript-angular-ioc/factory/AngularModuleWrapper' {
 
 }
 declare module 'typescript-angular-ioc/ioc/Inject' {
-	export function inject(dependencies: Array<string>): any;
+	export function inject(...dependencies: Array<string | string[]>): any;
+	export const Inject: typeof inject;
 
 }
 declare module 'typescript-angular-ioc/index' {

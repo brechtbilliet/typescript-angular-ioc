@@ -28,6 +28,18 @@ var SecondLevel = (function () {
     ], SecondLevel);
     return SecondLevel;
 })();
+var CapitalLevel = (function () {
+    function CapitalLevel(secondLevel, thirdLevel) {
+        this.secondLevel = secondLevel;
+        this.thirdLevel = thirdLevel;
+        console.log(this.secondLevel);
+        console.log(this.thirdLevel);
+    }
+    CapitalLevel = __decorate([
+        Inject_1.Inject("ISecondLevel", "SecondLevel")
+    ], CapitalLevel);
+    return CapitalLevel;
+})();
 var ThirdLevel = (function () {
     function ThirdLevel() {
     }
@@ -40,12 +52,20 @@ beforeEach(function () {
     kernel = new Kernel_1.Kernel()
         .bind("IFirstLevel").toSingleton(FirstLevel)
         .bind("ISecondLevel").toSingleton(SecondLevel)
-        .bind("IThirdLevel").toSingleton(ThirdLevel);
+        .bind("IThirdLevel").toSingleton(ThirdLevel)
+        .bind("ICapitalLevel").toSingleton(CapitalLevel);
 });
 describe("When using the @inject annotation", function () {
     it("should add the injections correctly", function () {
         var firstLevel = kernel.retrieve("IFirstLevel");
         expect(firstLevel.secondLevel.constructor.name).toBe("SecondLevel");
         expect(firstLevel.secondLevel.thirdLevel.constructor.name).toBe("ThirdLevel");
+    });
+});
+describe("when using the @Inject annotation (with spread notation)", function () {
+    it("should add the injections correctly", function () {
+        var capitalLevel = kernel.retrieve("ICapitalLevel");
+        expect(capitalLevel.secondLevel.constructor.name).toBe("SecondLevel");
+        expect(capitalLevel.thirdLevel.constructor.name).toBe("ThirdLevel");
     });
 });
