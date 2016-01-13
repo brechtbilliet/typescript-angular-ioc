@@ -36,7 +36,7 @@ var CapitalLevel = (function () {
         console.log(this.thirdLevel);
     }
     CapitalLevel = __decorate([
-        Inject_1.Inject("ISecondLevel", "SecondLevel")
+        Inject_1.Inject("ISecondLevel", "IThirdLevel")
     ], CapitalLevel);
     return CapitalLevel;
 })();
